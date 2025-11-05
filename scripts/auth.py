@@ -1,9 +1,9 @@
 class authenticate():
-    def __init__(self):
-        pass
+    def __init__(self, xtoken):
+        self.xtoken = xtoken
 
-    def create_headers(self, xtoken):
+    def create_headers(self):
         headers = {
-            "x-token": f"{xtoken}"
+            "x-token": self.xtoken
         }
         return headers

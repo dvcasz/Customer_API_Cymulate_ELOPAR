@@ -3,13 +3,13 @@ import requests
 from scripts.auth import authenticate
 
 class CollectEnvData():
-    def __init__(self):
-        self.cliente = ""
+    def __init__(self, cliente, xtoken):
+        self.cliente = cliente
         self.payload = {}
-        self.auth=authenticate()
+        self.auth = authenticate(xtoken)
 
-    def agents(self, xtoken):
-        headers = self.auth.create_headers(xtoken)
+    def agents(self):
+        headers = self.auth.create_headers()
 
         url = "https://api.app.cymulate.com/v1/agents/get-all"
 
@@ -20,8 +20,8 @@ class CollectEnvData():
         with open(filename, 'w') as json_file:
             json.dump(json_response, json_file, indent=4)
 
-    def envs(self, xtoken):
-        headers = self.auth.create_headers(xtoken)
+    def envs(self):
+        headers = self.auth.create_headers()
         
         url = "https://api.app.cymulate.com/v1/environments"
 
@@ -32,11 +32,7 @@ class CollectEnvData():
         with open(filename, 'w') as json_file:
             json.dump(json_response, json_file, indent=4)
 
-    def main(self, xtoken):
-        self.envs(xtoken)  
-        self.agents(xtoken)
+    def main(self):
+        self.envs()  
+        self.agents()
         print("[%] Lista de agentes e ambientes salvos na pasta ./environments")
-
-
-# if __name__ == '__main___':
-#     main()
